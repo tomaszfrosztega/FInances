@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Finances.Infrastructure.Services;
+using Finances.Core.Repositories;
+using Finances.Infrastructure.Repositories;
 
 namespace FInances
 {
@@ -28,6 +31,8 @@ namespace FInances
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            services.AddScoped<IUserRepository, InMemoryUserRepository>();
+            services.AddScoped<IUserServices, UserService>();
             services.AddMvc();
         }
 

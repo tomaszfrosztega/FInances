@@ -18,7 +18,7 @@ namespace Finances.Core.Domain
 
         public string FullName { get; protected set; }
 
-        public DateTime CreatedAt { get; protected set; }
+        public DateTime CreatedDate { get; protected set; }
 
         protected User()
         {
@@ -27,11 +27,11 @@ namespace Finances.Core.Domain
         public User(string email, string username, string password, string salt)
         {
             Id = Guid.NewGuid();
-            Email = email;
+            Email = email.ToLowerInvariant();
             UserName = username;
             Password = password;
             Salt = salt;
-            CreatedAt = DateTime.UtcNow;
+            CreatedDate = DateTime.UtcNow;
         }
 
     }

@@ -12,6 +12,8 @@ namespace Finances.Core.Domain
 
         public string AccountName { get; protected set; }
 
+        public DateTime CreatedDate { get; protected set; }
+
         protected Account()
         {
         }
@@ -19,10 +21,9 @@ namespace Finances.Core.Domain
         public Account(decimal amount, string accountName)
         {
             Id = Guid.NewGuid();
-
             Amount = amount;
-
             AccountName = accountName;
+            CreatedDate = DateTime.UtcNow;
         }
     }
 }

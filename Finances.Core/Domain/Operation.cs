@@ -16,7 +16,7 @@ namespace Finances.Core.Domain
 
         public string Name { get; protected set; }
 
-        public DateTime DateAdd { get; protected set; }
+        public DateTime OperatrionDate { get; protected set; }
 
         public OperationTypeEnum OperationType { get; protected set; }
 
@@ -31,7 +31,7 @@ namespace Finances.Core.Domain
             AccountId = accountId;
             Value = value;
             Name = name;
-            DateAdd = dateAdd;
+            OperatrionDate = dateAdd;
             OperationType = operationType;
         }
     }
