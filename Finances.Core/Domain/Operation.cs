@@ -20,6 +20,8 @@ namespace Finances.Core.Domain
 
         public OperationTypeEnum OperationType { get; protected set; }
 
+        public DateTime? UpdatedAt { get; protected set; }
+
         protected Operation()
         {
         }

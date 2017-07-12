@@ -14,6 +14,8 @@ namespace Finances.Core.Domain
 
         public DateTime CreatedDate { get; protected set; }
 
+        public DateTime UpdatedAt { get; protected set; }
+
         protected Account()
         {
         }

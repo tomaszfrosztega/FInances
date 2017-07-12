@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Finances.Core.Domain
 {
-    public class Categories
+    public class Category
     {
         public Guid Id { get; protected set; }
 
@@ -16,11 +16,11 @@ namespace Finances.Core.Domain
 
         public bool IsMainCategory { get; protected set; }
 
-        protected Categories()
+        protected Category()
         {
 
         }
-        public Categories(Guid parentCategoryId, string name, OperationTypeEnum defaultOperaionType, bool isMainCategory = false)
+        public Category(Guid parentCategoryId, string name, OperationTypeEnum defaultOperaionType, bool isMainCategory = false)
         {
             Id = Guid.NewGuid();
             Name = name;
