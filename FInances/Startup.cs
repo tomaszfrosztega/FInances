@@ -33,6 +33,8 @@ namespace FInances
             // Add framework services.
             services.AddScoped<IUserRepository, InMemoryUserRepository>();
             services.AddScoped<IUserServices, UserService>();
+            services.AddScoped<IAccountRepository, InMemoryAccountRepository>();
+            services.AddScoped<IAccountServices, AccountService>();
             services.AddMvc();
         }
 

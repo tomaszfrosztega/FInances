@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Repositories\InMemoryOperationRepository.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Finances.Core\Finances.Core.csproj" />
   </ItemGroup>
 

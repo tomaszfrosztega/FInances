@@ -9,6 +9,8 @@ namespace Finances.Core.Repositories
     {
         Account Get(Guid id);
 
+        Account Get(string name);
+
         IEnumerable<Account> GetAll();
 
         void Add(Account account);
