@@ -9,6 +9,8 @@ namespace Finances.Core.Repositories
     {
         Operation Get(Guid id);
 
+        Operation Get(string name);
+
         IEnumerable<Operation> GetAll();
 
         void Add(Operation operation);
@@ -16,5 +18,6 @@ namespace Finances.Core.Repositories
         void Update(Operation operation);
 
         void Delete(Operation operation);
+
     }
 }

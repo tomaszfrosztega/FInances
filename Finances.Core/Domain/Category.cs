@@ -8,7 +8,7 @@ namespace Finances.Core.Domain
     {
         public Guid Id { get; protected set; }
 
-        public Guid ParentCategoryId { get; protected set; }
+        public Guid? ParentCategoryId { get; protected set; }
 
         public string Name { get; protected set; }
 
@@ -20,12 +20,13 @@ namespace Finances.Core.Domain
         {
 
         }
-        public Category(Guid parentCategoryId, string name, OperationTypeEnum defaultOperaionType, bool isMainCategory = false)
+        public Category(Guid? parentCategoryId, string name, OperationTypeEnum defaultOperaionType, bool isMainCategory = false)
         {
             Id = Guid.NewGuid();
             Name = name;
             DefaultOperationType = defaultOperaionType;
             IsMainCategory = isMainCategory;
+            ParentCategoryId = parentCategoryId;
         }
     }
 }

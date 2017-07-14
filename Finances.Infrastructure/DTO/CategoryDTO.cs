@@ -9,7 +9,7 @@ namespace Finances.Infrastructure.DTO
     {
         public Guid Id { get;  set; }
 
-        public Guid ParentCategoryId { get;  set; }
+        public Guid? ParentCategoryId { get;  set; }
 
         public string Name { get;  set; }
 

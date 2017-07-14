@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Finances.Infrastructure.Services;
 using Finances.Core.Repositories;
 using Finances.Infrastructure.Repositories;
+using Finances.Infrastructure.IServices;
 
 namespace FInances
 {
@@ -31,10 +32,15 @@ namespace FInances
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddScoped<IUserRepository, InMemoryUserRepository>();
             services.AddScoped<IUserServices, UserService>();
-            services.AddScoped<IAccountRepository, InMemoryAccountRepository>();
             services.AddScoped<IAccountServices, AccountService>();
+            services.AddScoped<IOperationServices, OperationService>();
+            services.AddScoped<ICategoryServices, CategoryService>();
+
+            services.AddScoped<IAccountRepository, InMemoryAccountRepository>();
+            services.AddScoped<IUserRepository, InMemoryUserRepository>();
+            services.AddScoped<IOperationRepository, InMemoryOperationRepository>();
+            services.AddScoped<ICategoryRepository, InMemoryCategoryRepository>();
             services.AddMvc();
         }
 

@@ -9,6 +9,8 @@ namespace Finances.Core.Repositories
     {
         Category Get(Guid id);
 
+        Category Get(string name);
+
         IEnumerable<Category> GetAll();
 
         void Add(Category category);
@@ -16,5 +18,6 @@ namespace Finances.Core.Repositories
         void Update(Category category);
 
         void Delete(Category category);
+
     }
 }

@@ -24,7 +24,7 @@ namespace Finances.Infrastructure.Services
 
         public AccountDTO Get(string name)
         {
-            var account = _accountRepository.Get("RoR");
+            var account = _accountRepository.Get(name);
 
             var accountDto = new AccountDTO
             {
