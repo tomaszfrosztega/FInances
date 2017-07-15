@@ -8,16 +8,19 @@ using Finances.Core;
 using Finances.Infrastructure.DTO;
 using Finances.Core.Repositories;
 using Finances.Core.Domain;
+using AutoMapper;
 
 namespace Finances.Infrastructure.Services
 {
     public class CategoryService : ICategoryServices
     {
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IMapper _mapper;
 
-        public CategoryService(ICategoryRepository categoryRepository)
+        public CategoryService(ICategoryRepository categoryRepository, IMapper mapper)
         {
             _categoryRepository = categoryRepository;
+            _mapper = mapper;
         }
 
         public void Add(string name, OperationTypeEnum defaultOperationType)
@@ -31,15 +34,7 @@ namespace Finances.Infrastructure.Services
         {
             var category = _categoryRepository.Get(name);
 
-            var categoryDTO = new CategoryDTO
-            {
-                DefaultOperationType = category.DefaultOperationType,
-                Id = category.Id,
-                Name = category.Name,
-                ParentCategoryId = category.ParentCategoryId
-            };
-
-            return categoryDTO;
+            return _mapper.Map<Category, CategoryDTO>(category);
         }
 
         public ISet<CategoryDTO> GetAll()

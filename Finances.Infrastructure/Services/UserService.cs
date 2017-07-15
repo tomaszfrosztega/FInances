@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Finances.Infrastructure.DTO;
+using AutoMapper;
 
 namespace Finances.Infrastructure.Services
 {
@@ -11,24 +12,19 @@ namespace Finances.Infrastructure.Services
     {
 
         private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         public UserDTO Get(string email)
         {
             var user = _userRepository.Get(email);
-
-            var userDto = new UserDTO {
-                Email = user.Email,
-                FullName = user.FullName,
-                Id = user.Id,
-                UserName = user.UserName
-            };
-
-            return userDto;
+            
+            return _mapper.Map<User,UserDTO>(user);
         }
 
         public void Register(string email, string username, string password)

@@ -11,6 +11,7 @@ using Finances.Infrastructure.Services;
 using Finances.Core.Repositories;
 using Finances.Infrastructure.Repositories;
 using Finances.Infrastructure.IServices;
+using Finances.Infrastructure.Mappers;
 
 namespace FInances
 {
@@ -41,6 +42,8 @@ namespace FInances
             services.AddScoped<IUserRepository, InMemoryUserRepository>();
             services.AddScoped<IOperationRepository, InMemoryOperationRepository>();
             services.AddScoped<ICategoryRepository, InMemoryCategoryRepository>();
+
+            services.AddSingleton(AutoMapperConfig.Initialize());
             services.AddMvc();
         }
 

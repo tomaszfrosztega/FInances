@@ -8,16 +8,19 @@ using System.Threading.Tasks;
 using Finances.Infrastructure.DTO;
 using Finances.Core.Domain;
 using Finances.Core;
+using AutoMapper;
 
 namespace Finances.Infrastructure.Services
 {
     public class OperationService :IOperationServices
     {
         private readonly IOperationRepository _operationRepository;
+        private readonly IMapper _mapper;
 
-        public OperationService(IOperationRepository operationRepository)
+        public OperationService(IOperationRepository operationRepository, IMapper mapper)
         {
             _operationRepository = operationRepository;
+            _mapper = mapper;
         }
 
         public void Add(string name, decimal value)
@@ -37,16 +40,7 @@ namespace Finances.Infrastructure.Services
         {
             var operation = _operationRepository.Get(name);
 
-            var operationDTO = new OperationDTO
-            {
-                AccountId = operation.AccountId,
-                CategoryId = operation.CategoryId,
-                Id = operation.Id,
-                Name = operation.Name,
-                OperationType = operation.OperationType,
-                Value = operation.Value
-            };
-            return operationDTO;
+            return _mapper.Map<Operation, OperationDTO>(operation);
         }
 
         public IList<OperationDTO> GetAll()

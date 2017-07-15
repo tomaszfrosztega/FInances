@@ -5,16 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using Finances.Infrastructure.DTO;
 using Finances.Core.Repositories;
+using AutoMapper;
 
 namespace Finances.Infrastructure.Services
 {
     public class AccountService : IAccountServices
     {
         private readonly IAccountRepository _accountRepository;
+        private readonly IMapper _mapper;
 
-        public AccountService(IAccountRepository accountRepository)
+        public AccountService(IAccountRepository accountRepository, IMapper mapper)
         {
             _accountRepository = accountRepository;
+            _mapper = mapper;
         }
 
         public void AddNewAccount(decimal startValue, string name)
@@ -26,13 +29,7 @@ namespace Finances.Infrastructure.Services
         {
             var account = _accountRepository.Get(name);
 
-            var accountDto = new AccountDTO
-            {
-                AccountName = account.AccountName,
-                Amount = account.Amount,
-                Id = account.Id
-            };
-            return accountDto;
+return _mapper.Map<Account, >
         }
     }
 }
