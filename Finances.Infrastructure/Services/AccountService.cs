@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Finances.Infrastructure.DTO;
 using Finances.Core.Repositories;
 using AutoMapper;
+using Finances.Core.Domain;
 
 namespace Finances.Infrastructure.Services
 {
@@ -29,7 +30,7 @@ namespace Finances.Infrastructure.Services
         {
             var account = _accountRepository.Get(name);
 
-return _mapper.Map<Account, >
+            return _mapper.Map<Account, AccountDTO>(account);
         }
     }
 }
