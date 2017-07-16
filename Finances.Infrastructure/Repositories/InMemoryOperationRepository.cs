@@ -17,29 +17,32 @@ namespace Finances.Infrastructure.Repositories
             new Operation(new Guid(),new Guid(),100M,"Two",DateTime.UtcNow,OperationTypeEnum.Expense)
         };
 
-        public void Add(Operation operation)
+        public async Task AddAsync(Operation operation)
         {
             _operations.Add(operation);
+            await Task.CompletedTask;
         }
 
-        public void Delete(Operation operation)
+        public async Task DeleteAsync(Operation operation)
         {
             _operations.Remove(operation);
+            await Task.CompletedTask;
         }
 
-        public Operation Get(Guid id)
-            => _operations.Single(x => x.Id == id);
+        public async Task<Operation> GetAsync(Guid id)
+            => await Task.FromResult(_operations.Single(x => x.Id == id));
 
-        public Operation Get(string name)
-            => _operations.Single(x => x.Name == name);
+        public async Task<Operation> GetAsync(string name)
+            => await Task.FromResult(_operations.Single(x => x.Name == name));
 
-        public IEnumerable<Operation> GetAll()
+        public async Task<IList<Operation>> GetAllAsync()
         {
-            return _operations;
+            return await Task.FromResult(_operations);
         }
 
-        public void Update(Operation operation)
+        public async Task UpdateAsync(Operation operation)
         {
+            await Task.CompletedTask;
         }
     }
 }

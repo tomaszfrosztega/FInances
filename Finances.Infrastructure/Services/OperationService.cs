@@ -23,7 +23,7 @@ namespace Finances.Infrastructure.Services
             _mapper = mapper;
         }
 
-        public void Add(string name, decimal value)
+        public async Task AddAsync(string name, decimal value)
         {
             var operation = new Operation(new Guid(), 
                                           new Guid(), 
@@ -33,18 +33,19 @@ namespace Finances.Infrastructure.Services
                                           OperationTypeEnum.Expense
                                           );
 
-            _operationRepository.Add(operation);
+            await _operationRepository.AddAsync(operation);
         }
 
-        public OperationDTO Get(string name)
+        public async Task<OperationDTO> GetAsync(string name)
         {
-            var operation = _operationRepository.Get(name);
+            var operation = await _operationRepository.GetAsync(name);
 
             return _mapper.Map<Operation, OperationDTO>(operation);
         }
 
-        public IList<OperationDTO> GetAll()
+        public async Task<IList<OperationDTO>> GetAllAsync()
         {
+            var operations = await _operationRepository.GetAllAsync();
             return null;
         }
     }

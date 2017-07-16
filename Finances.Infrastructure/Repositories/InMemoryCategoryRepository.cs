@@ -17,29 +17,32 @@ namespace Finances.Infrastructure.Repositories
             new Category(null,"Work",OperationTypeEnum.Expense,true)
         };
 
-        public void Add(Category category)
+        public async Task AddAsync(Category category)
         {
             _category.Add(category);
+            await Task.CompletedTask;
         }
 
-        public void Delete(Category category)
+        public async Task DeleteAsync(Category category)
         {
             _category.Remove(category);
+            await Task.CompletedTask;
         }
 
-        public Category Get(Guid id)
-            => _category.Single(x => x.Id == id);
+        public async Task<Category> GetAsync(Guid id)
+            => await Task.FromResult(_category.SingleOrDefault(x => x.Id == id));
 
-        public Category Get(string name)
-            => _category.Single(x => x.Name == name);
+        public async Task<Category> GetAsync(string name)
+            => await Task.FromResult(_category.SingleOrDefault(x => x.Name == name));
 
-        public IEnumerable<Category> GetAll()
+        public async Task<ISet<Category>> GetAllAsync()
         {
-            return _category;
+            return await Task.FromResult(_category);
         }
 
-        public void Update(Category category)
+        public async Task UpdateAsync(Category category)
         {
+            await Task.CompletedTask;
         }
     }
 }

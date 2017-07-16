@@ -1,4 +1,5 @@
-﻿using Finances.Infrastructure.DTO;
+﻿using Finances.Infrastructure.Commands.Operations;
+using Finances.Infrastructure.DTO;
 using Finances.Infrastructure.IServices;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -20,7 +21,13 @@ namespace Finances.Api.Controllers
         }
 
         [HttpGet("{name}")]
-        public OperationDTO Get(string name)
-            => _operationServices.Get(name);
+        public async Task<OperationDTO> GetAsync(string name)
+            => await _operationServices.GetAsync(name);
+
+        [HttpPost]
+        public async Task Post([FromBody] CreateOperation operation)
+        {
+            await _operationServices.AddAsync(operation.Name, operation.Value);
+        }
     }
 }

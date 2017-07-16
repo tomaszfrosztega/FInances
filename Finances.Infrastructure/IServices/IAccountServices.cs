@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Finances.Infrastructure.Services
 {
     public interface IAccountServices
     {
-        void AddNewAccount(decimal startValue, string name);
+        Task AddAsync(decimal startValue, string name);
 
-        AccountDTO Get(string name);
+        Task<AccountDTO> GetAsync(string name);
     }
 }

@@ -10,10 +10,10 @@ namespace Finances.Infrastructure.IServices
 {
     public interface ICategoryServices
     {
-        void Add(string name, OperationTypeEnum defaultOperationType);
+        Task AddAsync(string name, OperationTypeEnum defaultOperationType);
 
-        CategoryDTO Get(string name);
+        Task <CategoryDTO> GetAsync(string name);
 
-        ISet<CategoryDTO> GetAll();
+        Task <ISet<CategoryDTO>> GetAllAsync();
     }
 }

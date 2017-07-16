@@ -1,10 +1,9 @@
 ﻿using Finances.Core.Domain;
 using Finances.Core.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Finances.Infrastructure.DTO;
 using AutoMapper;
+using System.Threading.Tasks;
 
 namespace Finances.Infrastructure.Services
 {
@@ -20,18 +19,23 @@ namespace Finances.Infrastructure.Services
             _mapper = mapper;
         }
 
-        public UserDTO Get(string email)
+        public async Task<UserDTO> GetAsync(string email)
         {
-            var user = _userRepository.Get(email);
+            var user = await _userRepository.GetAsync(email);
             
             return _mapper.Map<User,UserDTO>(user);
         }
 
-        public void Register(string email, string username, string password)
+        public async Task RegisterAsync(string email, string username, string password)
         {
+            var user = await _userRepository.GetAsync(email);
+            if (user != null)
+            {
+                throw new Exception($"User with email: {email} already exist");
+            }
             var salt = Guid.NewGuid().ToString("N");
-            var user = new User(email,username,password,salt);
-            _userRepository.Add(user);
+            user = new User(email,username,password,salt);
+            await _userRepository.AddAsync(user);
         }
     }
 }

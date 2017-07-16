@@ -2,19 +2,20 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Finances.Core.Repositories
 {
     public interface IAccountRepository
     {
-        Account Get(Guid id);
+        Task<Account> GetAsync(Guid id);
 
-        Account Get(string name);
+        Task<Account> GetAsync(string name);
 
-        IEnumerable<Account> GetAll();
+        Task<IEnumerable<Account>> GetAllAsync();
 
-        void Add(Account account);
+        Task AddAsync(Account account);
 
-        void Update(Account account);
+        Task UpdateAsync(Account account);
     }
 }

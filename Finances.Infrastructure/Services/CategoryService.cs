@@ -1,14 +1,11 @@
 ﻿using Finances.Infrastructure.IServices;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Finances.Core;
 using Finances.Infrastructure.DTO;
 using Finances.Core.Repositories;
 using Finances.Core.Domain;
 using AutoMapper;
+using System.Threading.Tasks;
 
 namespace Finances.Infrastructure.Services
 {
@@ -23,22 +20,23 @@ namespace Finances.Infrastructure.Services
             _mapper = mapper;
         }
 
-        public void Add(string name, OperationTypeEnum defaultOperationType)
+        public async Task AddAsync(string name, OperationTypeEnum defaultOperationType)
         {
             var category = new Category(null, name, defaultOperationType, true);
 
-            _categoryRepository.Add(category);
+            await _categoryRepository.AddAsync(category);
         }
 
-        public CategoryDTO Get(string name)
+        public async Task<CategoryDTO> GetAsync(string name)
         {
-            var category = _categoryRepository.Get(name);
+            var category = await _categoryRepository.GetAsync(name);
 
             return _mapper.Map<Category, CategoryDTO>(category);
         }
 
-        public ISet<CategoryDTO> GetAll()
+        public async Task<ISet<CategoryDTO>> GetAllAsync()
         {
+            var category = await _categoryRepository.GetAllAsync();
             return null;
         }
     }

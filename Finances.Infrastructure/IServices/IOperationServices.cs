@@ -9,10 +9,10 @@ namespace Finances.Infrastructure.IServices
 {
     public interface IOperationServices
     {
-        void Add(string name, decimal value);
+        Task AddAsync(string name, decimal value);
 
-        OperationDTO Get(string name);
+        Task<OperationDTO> GetAsync(string name);
 
-        IList<OperationDTO> GetAll();
+        Task<IList<OperationDTO>> GetAllAsync();
     }
 }

@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Finances.Infrastructure.DTO;
 using Finances.Core.Repositories;
 using AutoMapper;
 using Finances.Core.Domain;
+using System.Threading.Tasks;
 
 namespace Finances.Infrastructure.Services
 {
@@ -21,14 +18,15 @@ namespace Finances.Infrastructure.Services
             _mapper = mapper;
         }
 
-        public void AddNewAccount(decimal startValue, string name)
+        public async Task AddAsync(decimal startValue, string name)
         {
-            throw new NotImplementedException();
+            var account = new Account(startValue, name);
+            await _accountRepository.AddAsync(account);
         }
 
-        public AccountDTO Get(string name)
+        public async Task<AccountDTO> GetAsync(string name)
         {
-            var account = _accountRepository.Get(name);
+            var account = await _accountRepository.GetAsync(name);
 
             return _mapper.Map<Account, AccountDTO>(account);
         }

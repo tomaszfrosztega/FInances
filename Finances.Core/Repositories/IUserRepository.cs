@@ -1,18 +1,17 @@
 ﻿using Finances.Core.Domain;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace Finances.Core.Repositories
 {
     public interface IUserRepository
     {
-        User Get(Guid id);
+        Task<User> GetAsync(Guid id);
 
-        User Get(string email);
+        Task<User> GetAsync(string email);
 
-        void Add(User user);
+        Task AddAsync(User user);
 
-        void Update(User user);
+        Task UpdateAsync(User user);
     }
 }

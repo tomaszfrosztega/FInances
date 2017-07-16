@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Finances.Infrastructure.DTO;
 using Finances.Infrastructure.Services;
+using Finances.Infrastructure.Commands.Users;
 
 namespace FInances.Controllers
 {
@@ -19,7 +17,13 @@ namespace FInances.Controllers
         }
 
         [HttpGet("{email}")]
-        public UserDTO Get(string email)
-        => _userService.Get(email);
+        public async Task<UserDTO> Get(string email)
+            => await _userService.GetAsync(email);
+
+        [HttpPost]
+        public async Task Post([FromBody] CreateUser request)
+        {
+           await _userService.RegisterAsync(request.Email, request.UserName, request.Password);
+        }
     }
 }

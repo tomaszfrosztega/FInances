@@ -20,10 +20,10 @@ namespace Finances.Core.Domain
         {
         }
 
-        public Account(decimal amount, string accountName)
+        public Account(decimal startValue, string accountName)
         {
             Id = Guid.NewGuid();
-            Amount = amount;
+            Amount = startValue;
             AccountName = accountName;
             CreatedDate = DateTime.UtcNow;
         }

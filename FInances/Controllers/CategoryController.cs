@@ -1,4 +1,5 @@
-﻿using Finances.Infrastructure.DTO;
+﻿using Finances.Infrastructure.Commands.Categories;
+using Finances.Infrastructure.DTO;
 using Finances.Infrastructure.IServices;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -20,7 +21,13 @@ namespace Finances.Api.Controllers
         }
 
         [HttpGet("{name}")]
-        public CategoryDTO Get(string name)
-            => _categoryServices.Get(name);
+        public async Task<CategoryDTO> GetAsync(string name)
+            => await _categoryServices.GetAsync(name);
+
+        [HttpPost]
+        public async Task Post([FromBody] CreateCategory category)
+        {
+            await _categoryServices.AddAsync(category.Name, category.DefaultOperationType);
+        }
     }
 }

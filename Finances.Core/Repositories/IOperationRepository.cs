@@ -2,22 +2,23 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Finances.Core.Repositories
 {
     public interface IOperationRepository
     {
-        Operation Get(Guid id);
+        Task<Operation> GetAsync(Guid id);
 
-        Operation Get(string name);
+        Task<Operation> GetAsync(string name);
 
-        IEnumerable<Operation> GetAll();
+        Task<IList<Operation>> GetAllAsync();
 
-        void Add(Operation operation);
+        Task AddAsync(Operation operation);
 
-        void Update(Operation operation);
+        Task UpdateAsync(Operation operation);
 
-        void Delete(Operation operation);
+        Task DeleteAsync(Operation operation);
 
     }
 }

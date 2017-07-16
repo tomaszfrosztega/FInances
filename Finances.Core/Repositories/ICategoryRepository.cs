@@ -2,22 +2,23 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Finances.Core.Repositories
 {
     public interface ICategoryRepository
     {
-        Category Get(Guid id);
+        Task<Category> GetAsync(Guid id);
 
-        Category Get(string name);
+        Task<Category> GetAsync(string name);
 
-        IEnumerable<Category> GetAll();
+        Task<ISet<Category>> GetAllAsync();
 
-        void Add(Category category);
+        Task AddAsync(Category category);
 
-        void Update(Category category);
+        Task UpdateAsync(Category category);
 
-        void Delete(Category category);
+        Task DeleteAsync(Category category);
 
     }
 }

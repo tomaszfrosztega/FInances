@@ -1,9 +1,9 @@
 ﻿using Finances.Core.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Finances.Core.Domain;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Finances.Infrastructure.Repositories
 {
@@ -15,19 +15,21 @@ namespace Finances.Infrastructure.Repositories
             new User("user2@gmail.com","user2","a","salt")
         };
 
-        public void Add(User user)
+        public async Task AddAsync(User user)
         {
             _users.Add(user);
+            await Task.CompletedTask;
         }
 
-        public User Get(Guid id)
-            => _users.Single(x => x.Id == id);
+        public async Task<User> GetAsync(Guid id)
+            => await Task.FromResult(_users.SingleOrDefault(x => x.Id == id));
 
-        public User Get(string email)
-             => _users.Single(x => x.Email == email.ToLowerInvariant());
+        public async Task<User> GetAsync(string email)
+             =>await Task.FromResult( _users.SingleOrDefault(x => x.Email == email.ToLowerInvariant()));
 
-        public void Update(User user)
+        public async Task UpdateAsync(User user)
         {
+            await Task.CompletedTask;
         }
     }
 }

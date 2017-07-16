@@ -16,20 +16,21 @@ namespace Finances.Infrastructure.Repositories
             new Account(0,"Savings")
         };
 
-        public void Add(Account account)
-            => _account.Add(account);
+        public  async Task AddAsync(Account account)
+            => await Task.FromResult(_account.Add(account));
 
-        public Account Get(Guid id)
-            => _account.Single(x => x.Id == id);
+        public async Task<Account> GetAsync(Guid id)
+            => await Task.FromResult(_account.Single(x => x.Id == id));
 
-        public Account Get(string name)
-                => _account.Single(x => x.AccountName == name);
+        public async Task<Account> GetAsync(string name)
+                => await Task.FromResult(_account.Single(x => x.AccountName == name));
 
-        public IEnumerable<Account> GetAll()
-            => _account;
+        public async Task<IEnumerable<Account>> GetAllAsync()
+            => await Task.FromResult(_account);
 
-        public void Update(Account account)
+        public async Task UpdateAsync(Account account)
         {
+            await Task.CompletedTask;
         }
     }
 }
