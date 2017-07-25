@@ -1,0 +1,1 @@
+dotnet run -p Finances/Finances.Api.csproj
