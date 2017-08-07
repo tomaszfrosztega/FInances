@@ -1,17 +1,18 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Finances.Infrastructure.DTO;
 using Finances.Infrastructure.Services;
 using Finances.Infrastructure.Commands.Users;
+using Finances.Infrastructure.Commands;
+using Finances.Api.Controllers;
 
 namespace FInances.Controllers
 {
-    [Route("[controller]")]
-    public class UserController : Controller
+    public class UserController : ApiBaseController
     {
         private readonly IUserServices _userService;
 
-        public UserController(IUserServices userService)
+        public UserController(IUserServices userService, ICommandDispatcher commandDispatcher)
+            :base(commandDispatcher)
         {
             _userService = userService;
         }
@@ -28,11 +29,11 @@ namespace FInances.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreateUser request)
+        public async Task<IActionResult> Post([FromBody] CreateUser command)
         {
-            await _userService.RegisterAsync(request.Email, request.UserName, request.Password);
+            await CommandDispatcher.DispatchAsync(command);
 
-            return Created($"user/{request.Email}", new object());
+            return Created($"user/{command.Email}", new object());
         }
     }
 }
