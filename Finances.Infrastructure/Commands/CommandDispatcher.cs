@@ -15,6 +15,7 @@ namespace Finances.Infrastructure.Commands
         {
             _componentContext = componentContext;
         }
+
         public async Task DispatchAsync<T>(T command) where T : ICommand
         {
             if (command == null)

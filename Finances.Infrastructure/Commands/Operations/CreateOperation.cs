@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Finances.Infrastructure.Commands.Operations
+﻿namespace Finances.Infrastructure.Commands.Operations
 {
-    public class CreateOperation
+    public class CreateOperation : ICommand
     {
         public string Name { get; set; }
 
