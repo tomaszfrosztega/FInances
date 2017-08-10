@@ -13,18 +13,21 @@ using Xunit;
 
 namespace Finances.Tests.Services
 {
-    public class UserServiceTest
+    public class UserServiceTest : BaseServiceTest<IUserRepository>
     {
+        private readonly IUserServices _userService;
+
+        public UserServiceTest() : base(new Mock<IUserRepository>())
+        {
+            _userService = new UserService(Repository.Object, Mapper.Object);
+        }
+
         [Fact]
         public async Task RegisterAsyncShouldInvokeAddAsyncOnRepository()
         {
-            var userRepositoryMock = new Mock<IUserRepository>();
-            var mapperMock = new Mock<IMapper>();
+            await _userService.RegisterAsync("email@email.com", "janusz", "a");
 
-            var userService = new UserService(userRepositoryMock.Object, mapperMock.Object);
-            await userService.RegisterAsync("email@email.com", "janusz", "a");
-
-            userRepositoryMock.Verify(x=>x.AddAsync(It.IsAny<User>()),Times.Once);
+            Repository.Verify(x=>x.AddAsync(It.IsAny<User>()),Times.Once);
         }
     }
 }

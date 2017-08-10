@@ -28,7 +28,7 @@ namespace Finances.Tests.EndToEnd.Controllers
         }
 
         [Fact]
-        public async Task GivenInValidEmailUserShouldNotExist()
+        public async Task GivenInvalidEmailUserShouldNotExist()
         {
             var email = "user199@gmail.com";
             var response = await Client.GetAsync($"user/{email}");
