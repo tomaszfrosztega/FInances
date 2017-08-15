@@ -7,7 +7,7 @@ using Finances.Core;
 
 namespace Finances.Infrastructure.Commands.Categories
 {
-    public class CreateCategory
+    public class CreateCategory : ICommand
     {
         public string Name { get; set; }
 

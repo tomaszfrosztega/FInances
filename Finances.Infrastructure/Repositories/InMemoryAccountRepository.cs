@@ -20,10 +20,10 @@ namespace Finances.Infrastructure.Repositories
             => await Task.FromResult(_account.Add(account));
 
         public async Task<Account> GetAsync(Guid id)
-            => await Task.FromResult(_account.Single(x => x.Id == id));
+            => await Task.FromResult(_account.SingleOrDefault(x => x.Id == id));
 
         public async Task<Account> GetAsync(string name)
-                => await Task.FromResult(_account.Single(x => x.AccountName == name));
+                => await Task.FromResult(_account.SingleOrDefault(x => x.AccountName == name));
 
         public async Task<IEnumerable<Account>> GetAllAsync()
             => await Task.FromResult(_account);

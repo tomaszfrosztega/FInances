@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace Finances.Api.Controllers
 {
-    [Route("[controller]")]
     public class OperationController : ApiBaseController
     {
         private readonly IOperationServices _operationServices;
@@ -26,7 +25,10 @@ namespace Finances.Api.Controllers
         public async Task<IActionResult> GetAsync(string name)
         {
             var operation = await _operationServices.GetAsync(name);
-
+            if (operation == null)
+            {
+                return NotFound();
+            }
             return Json(operation);
         }
 

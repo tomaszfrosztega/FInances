@@ -1,4 +1,5 @@
-﻿using Finances.Infrastructure.Commands.Categories;
+﻿using Finances.Infrastructure.Commands;
+using Finances.Infrastructure.Commands.Categories;
 using Finances.Infrastructure.DTO;
 using Finances.Infrastructure.IServices;
 using Microsoft.AspNetCore.Mvc;
@@ -10,24 +11,34 @@ using System.Threading.Tasks;
 
 namespace Finances.Api.Controllers
 {
-    [Route("[controller]")]
-    public class CategoryController : Controller
+    public class CategoryController : ApiBaseController
     {
         private readonly ICategoryServices _categoryServices;
 
-        public CategoryController(ICategoryServices categoryServices)
+        public CategoryController(ICategoryServices categoryServices, ICommandDispatcher commandDispatcher)
+            :base(commandDispatcher)
         {
             _categoryServices = categoryServices;
         }
 
         [HttpGet("{name}")]
-        public async Task<CategoryDTO> GetAsync(string name)
-            => await _categoryServices.GetAsync(name);
+        public async Task<IActionResult> GetAsync(string name)
+        {
+            var category = await _categoryServices.GetAsync(name);
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            return Json(category);
+        }
 
         [HttpPost]
-        public async Task Post([FromBody] CreateCategory category)
+        public async Task<IActionResult> Post([FromBody] CreateCategory command)
         {
-            await _categoryServices.AddAsync(category.Name, category.DefaultOperationType);
+            await CommandDispatcher.DispatchAsync(command);
+
+            return Created($"category/{command.Name}", new object());
         }
     }
 }

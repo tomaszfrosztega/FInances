@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Finances.Infrastructure.Commands.Accounts
+﻿namespace Finances.Infrastructure.Commands.Accounts
 {
-    public class CreateAccount
+    public class CreateAccount : ICommand
     {
         public string Name { get; set; }
 

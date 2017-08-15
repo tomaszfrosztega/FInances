@@ -30,10 +30,10 @@ namespace Finances.Infrastructure.Repositories
         }
 
         public async Task<Operation> GetAsync(Guid id)
-            => await Task.FromResult(_operations.Single(x => x.Id == id));
+            => await Task.FromResult(_operations.SingleOrDefault(x => x.Id == id));
 
         public async Task<Operation> GetAsync(string name)
-            => await Task.FromResult(_operations.Single(x => x.Name == name));
+            => await Task.FromResult(_operations.SingleOrDefault(x => x.Name == name));
 
         public async Task<IList<Operation>> GetAllAsync()
         {
