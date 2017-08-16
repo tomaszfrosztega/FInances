@@ -23,14 +23,18 @@ namespace Finances.Infrastructure.Services
             _mapper = mapper;
         }
 
-        public async Task AddAsync(string name, decimal value)
+        public async Task AddAsync(Guid accountID, Guid categoryID,string name, decimal value, OperationTypeEnum operationType)
         {
-            var operation = new Operation(new Guid(), 
-                                          new Guid(), 
+            if (accountID.Equals(new Guid()) || categoryID.Equals(new Guid()))
+            {
+                throw new ArgumentException("Account or category is invalid");
+            }
+            var operation = new Operation(accountID,
+                                          categoryID, 
                                           value,
                                           name,
-                                          DateTime.UtcNow, 
-                                          OperationTypeEnum.Expense
+                                          DateTime.UtcNow,
+                                          operationType
                                           );
 
             await _operationRepository.AddAsync(operation);
@@ -39,7 +43,6 @@ namespace Finances.Infrastructure.Services
         public async Task<OperationDTO> GetAsync(string name)
         {
             var operation = await _operationRepository.GetAsync(name);
-
             return _mapper.Map<Operation, OperationDTO>(operation);
         }
 

@@ -16,7 +16,7 @@ namespace Finances.Infrastructure.Handlers.Users
         }
         public async Task HandleAsync(CreateOperation command)
         {
-            await _operationService.AddAsync(command.Name, command.Value);
+            await _operationService.AddAsync(command.AccountID,command.CategoryID, command.Name, command.Value, command.OperationType);
         }
     }
 }

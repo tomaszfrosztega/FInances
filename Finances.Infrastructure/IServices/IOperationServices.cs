@@ -1,15 +1,14 @@
-﻿using Finances.Infrastructure.DTO;
+﻿using Finances.Core;
+using Finances.Infrastructure.DTO;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Finances.Infrastructure.IServices
 {
     public interface IOperationServices
     {
-        Task AddAsync(string name, decimal value);
+        Task AddAsync(Guid accountID, Guid categoryID, string name, decimal value, OperationTypeEnum operationType);
 
         Task<OperationDTO> GetAsync(string name);
 

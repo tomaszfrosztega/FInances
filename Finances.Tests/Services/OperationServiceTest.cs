@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Finances.Core;
 using Finances.Core.Domain;
 using Finances.Core.Repositories;
 using Finances.Infrastructure.IServices;
@@ -25,7 +26,7 @@ namespace Finances.Tests.Services
         [Fact]
         public async Task AddAsyncShouldInvokeAddAsyncOnRepository()
         {
-            await _operationService.AddAsync("book",20m);
+            await _operationService.AddAsync(Guid.NewGuid(), Guid.NewGuid(), "book",20m, OperationTypeEnum.Expense);
 
             Repository.Verify(x => x.AddAsync(It.IsAny<Operation>()), Times.Once);
         }

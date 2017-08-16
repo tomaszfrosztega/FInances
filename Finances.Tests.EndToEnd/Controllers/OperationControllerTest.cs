@@ -1,4 +1,5 @@
-﻿using Finances.Infrastructure.Commands.Operations;
+﻿using Finances.Core;
+using Finances.Infrastructure.Commands.Operations;
 using Finances.Infrastructure.DTO;
 using FluentAssertions;
 using Newtonsoft.Json;
@@ -15,7 +16,7 @@ namespace Finances.Tests.EndToEnd.Controllers
     public class OperationControllerTest : ControllerTestBase
     {
         [Fact]
-        public async Task GivenValidNameOPerationShouldExist()
+        public async Task GivenValidNameOperationShouldExist()
         {
             var name = "Two";
             var operation = await GetOperationAsync(name);
@@ -36,16 +37,19 @@ namespace Finances.Tests.EndToEnd.Controllers
         {
             var command = new CreateOperation
             {
+                AccountID = Guid.NewGuid(),
+                CategoryID = Guid.NewGuid(),
                 Name = "three",
-                Value= 10m
+                Value= 10m,
+                OperationType = OperationTypeEnum.Expense
             };
             var payload = Payload(command);
             var response = await Client.PostAsync("operation", payload);
             response.StatusCode.ShouldBeEquivalentTo(HttpStatusCode.Created);
             response.Headers.Location.ToString().ShouldBeEquivalentTo($"operation/{command.Name}");
 
-            var user = await GetOperationAsync(command.Name);
-            user.Name.ShouldBeEquivalentTo(command.Name);
+            var operation = await GetOperationAsync(command.Name);
+            operation.Name.ShouldBeEquivalentTo(command.Name);
         }
 
         private async Task<OperationDTO> GetOperationAsync(string name)
