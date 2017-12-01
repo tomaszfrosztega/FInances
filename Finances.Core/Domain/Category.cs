@@ -20,6 +20,7 @@ namespace Finances.Core.Domain
         {
 
         }
+
         public Category(Guid? parentCategoryId, string name, OperationTypeEnum defaultOperaionType, bool isMainCategory = false)
         {
             Id = Guid.NewGuid();

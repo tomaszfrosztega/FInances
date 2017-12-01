@@ -4,16 +4,19 @@ using Finances.Infrastructure.Services;
 using Finances.Infrastructure.Commands.Users;
 using Finances.Infrastructure.Commands;
 using Finances.Api.Controllers;
+using Finances.Infrastructure.Settings;
 
 namespace FInances.Controllers
 {
     public class UserController : ApiBaseController
     {
         private readonly IUserServices _userService;
+        private readonly GeneralSettings _settings;
 
-        public UserController(IUserServices userService, ICommandDispatcher commandDispatcher)
+        public UserController(IUserServices userService, ICommandDispatcher commandDispatcher, GeneralSettings settings)
             :base(commandDispatcher)
         {
+            _settings = settings;
             _userService = userService;
         }
 

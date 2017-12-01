@@ -12,6 +12,7 @@ using Finances.Infrastructure.Mappers;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Finances.Infrastructure.IoC.Modules;
+using Finances.Infrastructure.IoC;
 
 namespace FInances
 {
@@ -44,12 +45,11 @@ namespace FInances
             services.AddScoped<IOperationRepository, InMemoryOperationRepository>();
             services.AddScoped<ICategoryRepository, InMemoryCategoryRepository>();
 
-            services.AddSingleton(AutoMapperConfig.Initialize());
             services.AddMvc();
 
             var builder = new ContainerBuilder();
             builder.Populate(services);
-            builder.RegisterModule<CommandModule>();
+            builder.RegisterModule(new ContainerModule(Configuration));
             ApplicationContainer = builder.Build();
 
             return new AutofacServiceProvider(ApplicationContainer);

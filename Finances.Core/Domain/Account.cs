@@ -18,6 +18,7 @@ namespace Finances.Core.Domain
 
         protected Account()
         {
+
         }
 
         public Account(decimal startValue, string accountName)
