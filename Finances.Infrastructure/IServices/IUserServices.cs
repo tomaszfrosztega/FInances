@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Finances.Infrastructure.Services
 {
-    public interface IUserServices
+    public interface IUserServices : IService
     {
         Task RegisterAsync(string email, string username, string password);
 

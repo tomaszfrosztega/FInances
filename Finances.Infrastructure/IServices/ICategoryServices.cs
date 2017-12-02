@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Finances.Infrastructure.IServices
 {
-    public interface ICategoryServices
+    public interface ICategoryServices : IService
     {
         Task AddAsync(string name, OperationTypeEnum defaultOperationType);
 

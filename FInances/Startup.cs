@@ -34,17 +34,6 @@ namespace FInances
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
-            services.AddScoped<IUserServices, UserService>();
-            services.AddScoped<IAccountServices, AccountService>();
-            services.AddScoped<IOperationServices, OperationService>();
-            services.AddScoped<ICategoryServices, CategoryService>();
-
-            services.AddScoped<IAccountRepository, InMemoryAccountRepository>();
-            services.AddScoped<IUserRepository, InMemoryUserRepository>();
-            services.AddScoped<IOperationRepository, InMemoryOperationRepository>();
-            services.AddScoped<ICategoryRepository, InMemoryCategoryRepository>();
-
             services.AddMvc();
 
             var builder = new ContainerBuilder();

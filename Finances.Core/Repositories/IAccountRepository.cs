@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Finances.Core.Repositories
 {
-    public interface IAccountRepository
+    public interface IAccountRepository : IRepository
     {
         Task<Account> GetAsync(Guid id);
 

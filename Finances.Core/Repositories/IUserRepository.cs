@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Finances.Core.Repositories
 {
-    public interface IUserRepository
+    public interface IUserRepository : IRepository
     {
         Task<User> GetAsync(Guid id);
 

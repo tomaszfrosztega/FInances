@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Finances.Infrastructure.IServices
 {
-    public interface IOperationServices
+    public interface IOperationServices : IService
     {
         Task AddAsync(Guid accountID, Guid categoryID, string name, decimal value, OperationTypeEnum operationType);
 
