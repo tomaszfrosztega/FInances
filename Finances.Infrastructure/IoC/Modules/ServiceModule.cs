@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Finances.Infrastructure.IServices;
+using Finances.Infrastructure.Services;
 using System.Linq;
 using System.Reflection;
 
@@ -17,6 +18,10 @@ namespace Finances.Infrastructure.IoC.Modules
                 .Where(x => x.IsAssignableTo<IService>())
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
+
+            builder.RegisterType<Encrypter>()
+                .As<IEncrypter>()
+                .SingleInstance();
         }
     }
 }

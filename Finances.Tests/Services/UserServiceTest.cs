@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Finances.Core.Domain;
 using Finances.Core.Repositories;
+using Finances.Infrastructure.IServices;
 using Finances.Infrastructure.Services;
 using FluentAssertions;
 using Moq;
@@ -19,7 +20,7 @@ namespace Finances.Tests.Services
 
         public UserServiceTest() : base(new Mock<IUserRepository>())
         {
-            _userService = new UserService(Repository.Object, Mapper.Object);
+            _userService = new UserService(Repository.Object, Encrypter.Object, Mapper.Object);
         }
 
         [Fact]

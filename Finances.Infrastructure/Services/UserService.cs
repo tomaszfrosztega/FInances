@@ -4,6 +4,7 @@ using System;
 using Finances.Infrastructure.DTO;
 using AutoMapper;
 using System.Threading.Tasks;
+using Finances.Infrastructure.IServices;
 
 namespace Finances.Infrastructure.Services
 {
@@ -12,10 +13,12 @@ namespace Finances.Infrastructure.Services
 
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
+        private readonly IEncrypter _encrypter;
 
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        public UserService(IUserRepository userRepository, IEncrypter encrypter, IMapper mapper)
         {
             _userRepository = userRepository;
+            _encrypter = encrypter;
             _mapper = mapper;
         }
 
@@ -26,6 +29,25 @@ namespace Finances.Infrastructure.Services
             return _mapper.Map<User,UserDTO>(user);
         }
 
+        public async Task LoginAsync(string email, string password)
+        {
+            var user = await _userRepository.GetAsync(email);
+            if (user != null)
+            {
+                throw new Exception("Invalid Credentials");
+            }
+
+            var salt = _encrypter.GetSalt(password);
+            var hash = _encrypter.GetHash(password, salt);
+
+            if (user.Password == hash)
+            {
+                return;
+            }
+
+            throw new Exception("Invalid Credentials");
+        }
+
         public async Task RegisterAsync(string email, string username, string password)
         {
             var user = await _userRepository.GetAsync(email);
@@ -33,8 +55,9 @@ namespace Finances.Infrastructure.Services
             {
                 throw new Exception($"User with email: {email} already exist");
             }
-            var salt = Guid.NewGuid().ToString("N");
-            user = new User(email,username,password,salt);
+            var salt = _encrypter.GetSalt(password);
+            var hash = _encrypter.GetHash(password, salt);
+            user = new User(email,username,hash,salt);
             await _userRepository.AddAsync(user);
         }
     }

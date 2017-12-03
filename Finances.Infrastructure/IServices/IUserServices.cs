@@ -9,5 +9,7 @@ namespace Finances.Infrastructure.Services
         Task RegisterAsync(string email, string username, string password);
 
         Task<UserDTO> GetAsync(string email);
+
+        Task LoginAsync(string email, string password);
     }
 }

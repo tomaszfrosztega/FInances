@@ -35,7 +35,6 @@ namespace FInances
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-
             var builder = new ContainerBuilder();
             builder.Populate(services);
             builder.RegisterModule(new ContainerModule(Configuration));
