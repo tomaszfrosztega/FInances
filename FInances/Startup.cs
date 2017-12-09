@@ -13,6 +13,9 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Finances.Infrastructure.IoC.Modules;
 using Finances.Infrastructure.IoC;
+using Microsoft.IdentityModel.Tokens;
+using Finances.Infrastructure.Settings;
+using System.Text;
 
 namespace FInances
 {
@@ -34,6 +37,7 @@ namespace FInances
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthorization(x => x.AddPolicy("admin", p => p.RequireRole("admin")));
             services.AddMvc();
             var builder = new ContainerBuilder();
             builder.Populate(services);
@@ -48,6 +52,21 @@ namespace FInances
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            var jwtSettings = app.ApplicationServices.GetService<JwtSettings>();
+
+            //authentication witn jwt
+            app.UseJwtBearerAuthentication(new JwtBearerOptions
+            {
+                AutomaticAuthenticate = true,
+
+                TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidIssuer = jwtSettings.Issuer, //only this hosc can generata token
+                    ValidateAudience = false,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
+                }
+            });
 
             app.UseMvc();
             appLifeTime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());

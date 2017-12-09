@@ -24,6 +24,8 @@ namespace Finances.Infrastructure.IoC.Modules
         {
             builder.RegisterInstance(_configuration.GetSettings<GeneralSettings>())
                 .SingleInstance();
+            builder.RegisterInstance(_configuration.GetSettings<JwtSettings>())
+                .SingleInstance();
         }
     }
 }

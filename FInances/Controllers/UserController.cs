@@ -5,6 +5,7 @@ using Finances.Infrastructure.Commands.Users;
 using Finances.Infrastructure.Commands;
 using Finances.Api.Controllers;
 using Finances.Infrastructure.Settings;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FInances.Controllers
 {
@@ -19,7 +20,8 @@ namespace FInances.Controllers
             _settings = settings;
             _userService = userService;
         }
-
+        
+        [Authorize(Policy ="admin")]
         [HttpGet("{email}")]
         public async Task<IActionResult> Get(string email)
         {
