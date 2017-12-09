@@ -21,15 +21,6 @@ namespace Finances.Api.Controllers
             _jwtHandler = jwtHandler;
         }
 
-        [HttpGet]
-        [Route("token")]
-        public IActionResult Get()
-        {
-            var token = _jwtHandler.CreateToken("user1@gmail.com", "admin");
-
-            return Json(token);
-        }
-
         [HttpPut]
         [Route("Password")]
         public async Task<IActionResult> Put([FromBody] ChangeUserPassword command)

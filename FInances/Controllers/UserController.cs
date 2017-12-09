@@ -21,7 +21,7 @@ namespace FInances.Controllers
             _userService = userService;
         }
         
-        [Authorize(Policy ="admin")]
+        //[Authorize(Policy ="admin")]
         [HttpGet("{email}")]
         public async Task<IActionResult> Get(string email)
         {

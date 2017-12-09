@@ -38,6 +38,7 @@ namespace FInances
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddAuthorization(x => x.AddPolicy("admin", p => p.RequireRole("admin")));
+            services.AddMemoryCache();
             services.AddMvc();
             var builder = new ContainerBuilder();
             builder.Populate(services);

@@ -21,6 +21,8 @@ namespace Finances.Core.Domain
 
         public string FullName { get; protected set; }
 
+        public string Role { get; protected set; }
+
         public DateTime CreatedDate { get; protected set; }
 
         public DateTime UpdatedAt { get; protected set; }
@@ -38,6 +40,7 @@ namespace Finances.Core.Domain
             Salt = salt;
             CreatedDate = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
+            Role = "admin";
         }
 
         public void SetUserName(string username)
