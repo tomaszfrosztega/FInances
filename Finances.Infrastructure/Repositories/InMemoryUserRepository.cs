@@ -9,11 +9,7 @@ namespace Finances.Infrastructure.Repositories
 {
     public class InMemoryUserRepository : IUserRepository
     {
-        private static ISet<User> _users = new HashSet<User>
-        {
-            new User("user1@gmail.com","user","a","salt"),
-            new User("user2@gmail.com","user2","a","salt")
-        };
+        private static ISet<User> _users = new HashSet<User>();
 
         public async Task AddAsync(User user)
         {
@@ -22,10 +18,10 @@ namespace Finances.Infrastructure.Repositories
         }
 
         public async Task<User> GetAsync(Guid id)
-            => await Task.FromResult(_users.SingleOrDefault(x => x.Id == id));
+            => await Task.FromResult(_users.FirstOrDefault(x => x.Id == id));
 
         public async Task<User> GetAsync(string email)
-             =>await Task.FromResult( _users.SingleOrDefault(x => x.Email == email.ToLowerInvariant()));
+             =>await Task.FromResult( _users.FirstOrDefault(x => x.Email == email.ToLowerInvariant()));
 
         public async Task UpdateAsync(User user)
         {

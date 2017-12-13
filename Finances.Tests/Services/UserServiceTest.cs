@@ -26,7 +26,7 @@ namespace Finances.Tests.Services
         [Fact]
         public async Task RegisterAsyncShouldInvokeAddAsyncOnRepository()
         {
-            await _userService.RegisterAsync("email@email.com", "janusz", "a");
+            await _userService.RegisterAsync(Guid.NewGuid(),"email@email.com", "janusz", "a");
 
             Repository.Verify(x=>x.AddAsync(It.IsAny<User>()),Times.Once);
         }

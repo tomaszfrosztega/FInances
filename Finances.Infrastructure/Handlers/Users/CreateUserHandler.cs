@@ -1,6 +1,7 @@
 ﻿using Finances.Infrastructure.Commands;
 using Finances.Infrastructure.Commands.Users;
 using Finances.Infrastructure.Services;
+using System;
 using System.Threading.Tasks;
 
 namespace Finances.Infrastructure.Handlers.Users
@@ -15,7 +16,7 @@ namespace Finances.Infrastructure.Handlers.Users
         }
         public async Task HandleAsync(CreateUser command)
         {
-            await _userService.RegisterAsync(command.Email, command.UserName, command.Password);
+            await _userService.RegisterAsync(Guid.NewGuid(),command.Email, command.UserName, command.Password);
         }
     }
 }

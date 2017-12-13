@@ -49,10 +49,17 @@ namespace FInances
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IApplicationLifetime appLifeTime)
+        public void Configure(IApplicationBuilder app, 
+            IHostingEnvironment env, 
+            ILoggerFactory loggerFactory, 
+            IApplicationLifetime appLifeTime)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+            var logger = loggerFactory.CreateLogger("Startup");
+            logger.LogWarning("Logger configured!");
+
+            Console.WriteLine("Hi!");
 
             var jwtSettings = app.ApplicationServices.GetService<JwtSettings>();
 
@@ -63,12 +70,18 @@ namespace FInances
 
                 TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidIssuer = jwtSettings.Issuer, //only this hosc can generata token
+                    ValidIssuer = jwtSettings.Issuer,
                     ValidateAudience = false,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
                 }
             });
-
+            //initializa data using CustomDataInitializer
+            var generalSettings = app.ApplicationServices.GetService<GeneralSettings>();
+            if (generalSettings.SeedData)
+            {
+                var dataInitializer = app.ApplicationServices.GetService<IDataInitializer>();
+                dataInitializer.SeedAsync();
+            }
             app.UseMvc();
             appLifeTime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
         }
