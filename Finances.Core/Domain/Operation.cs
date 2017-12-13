@@ -36,5 +36,20 @@ namespace Finances.Core.Domain
             OperatrionDate = dateAdd;
             OperationType = operationType;
         }
+
+        /// <summary>
+        /// Temporary
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static Operation Create(string name, decimal value)
+        {
+            return new Operation
+            {
+                Name = name,
+                Value = value
+            };
+        }
     }
 }

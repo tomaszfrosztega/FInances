@@ -16,11 +16,16 @@ namespace Finances.Infrastructure.Services
     {
         private readonly IOperationRepository _operationRepository;
         private readonly IMapper _mapper;
+        //private readonly IOperationTemplateProvider _templateProvider;
 
-        public OperationService(IOperationRepository operationRepository, IMapper mapper)
+        public OperationService(IOperationRepository operationRepository, 
+            IMapper mapper//,
+            //IOperationTemplateProvider templateProvider
+            )
         {
             _operationRepository = operationRepository;
             _mapper = mapper;
+          //  _templateProvider = templateProvider;
         }
 
         public async Task AddAsync(Guid accountID, Guid categoryID,string name, decimal value, OperationTypeEnum operationType)
