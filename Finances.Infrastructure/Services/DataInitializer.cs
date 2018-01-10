@@ -12,11 +12,18 @@ namespace Finances.Infrastructure.Services
     {
         private readonly IUserServices _userService;
         private readonly ILogger<DataInitializer> _logger;
+        private readonly IOperationServices _operationService;
+        private readonly ITagService _tagService;
 
-        public DataInitializer(IUserServices userService, ILogger<DataInitializer> logger)
+        public DataInitializer(IUserServices userService, 
+            ILogger<DataInitializer> logger,
+            IOperationServices operationService,
+            ITagService tagService)
         {
             _userService = userService;
             _logger = logger;
+            _operationService = operationService;
+            _tagService = tagService;
         }
         public async Task SeedAsync()
         {
@@ -35,6 +42,7 @@ namespace Finances.Infrastructure.Services
                 var userName = $"admin{i}";
                 tasks.Add(_userService.RegisterAsync(userId, $"{userName}@gmail.com", userName, "password"));
             }
+            tasks.Add(_tagService.AddAsync("test", Guid.NewGuid(), "One"));
             await Task.WhenAll(tasks);
             _logger.LogTrace("Data was initialized");
         }

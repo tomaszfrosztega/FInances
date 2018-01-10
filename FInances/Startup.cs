@@ -16,6 +16,7 @@ using Finances.Infrastructure.IoC;
 using Microsoft.IdentityModel.Tokens;
 using Finances.Infrastructure.Settings;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace FInances
 {
@@ -39,7 +40,8 @@ namespace FInances
         {
             services.AddAuthorization(x => x.AddPolicy("admin", p => p.RequireRole("admin")));
             services.AddMemoryCache();
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(x=>x.SerializerSettings.Formatting = Formatting.Indented);
             var builder = new ContainerBuilder();
             builder.Populate(services);
             builder.RegisterModule(new ContainerModule(Configuration));

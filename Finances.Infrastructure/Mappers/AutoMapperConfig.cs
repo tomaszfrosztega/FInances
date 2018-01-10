@@ -18,6 +18,8 @@ namespace Finances.Infrastructure.Mappers
                 cfg.CreateMap<Account, AccountDTO>();
                 cfg.CreateMap<Category, CategoryDTO>();
                 cfg.CreateMap<Operation, OperationDTO>();
+                cfg.CreateMap<Operation, OperationDetailsDTO>();
+                cfg.CreateMap<Tag, TagDTO>();
             })
             .CreateMapper();
     }

@@ -35,8 +35,8 @@ namespace Finances.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateAccount command)
         {
-            await CommandDispatcher.DispatchAsync(command);
-            return Created($"account/{command.Name}", new object());
+            await DispatchAsync(command);
+            return Created($"account/{command.Name}", null);
         }
     }
 }

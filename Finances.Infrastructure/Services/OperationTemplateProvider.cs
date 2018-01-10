@@ -82,11 +82,8 @@ namespace Finances.Infrastructure.Services
 
         private class OperationTemplateDetails
         {
-            
             public string Name { get; }
-
             public decimal Value { get; }
-
             public OperationTemplateDetails(string name, decimal value)
             {
                 Value = value;

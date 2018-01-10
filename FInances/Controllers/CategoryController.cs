@@ -36,9 +36,9 @@ namespace Finances.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateCategory command)
         {
-            await CommandDispatcher.DispatchAsync(command);
+            await DispatchAsync(command);
 
-            return Created($"category/{command.Name}", new object());
+            return Created($"category/{command.Name}", null);
         }
     }
 }

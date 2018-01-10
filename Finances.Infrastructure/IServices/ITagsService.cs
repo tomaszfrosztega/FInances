@@ -1,5 +1,4 @@
-﻿using Finances.Infrastructure.DTO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Finances.Infrastructure.IServices
 {
-    public interface IJwtHandler
+    public interface ITagService : IService
     {
-        JwtDTO CreateToken(Guid userId, string role);
+        Task AddAsync(string name, Guid categoryId, string operationName);
     }
 }

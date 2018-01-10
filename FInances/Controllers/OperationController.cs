@@ -32,12 +32,24 @@ namespace Finances.Api.Controllers
             return Json(operation);
         }
 
+        //[HttpGet]
+        //[Route("{operationId}")]
+        //public async Task<IActionResult> GetAsync(Guid operationId)
+        //{
+        //    var operation = await _operationServices.GetAsync(name);
+        //    if (operation == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Json(operation);
+        //}
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateOperation command)
         {
-            await CommandDispatcher.DispatchAsync(command);
+            await DispatchAsync(command);
 
-            return Created($"operation/{command.Name}", new object());
+            return Created($"operation/{command.Name}", null);
         }
     }
 }

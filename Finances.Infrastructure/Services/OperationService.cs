@@ -45,10 +45,10 @@ namespace Finances.Infrastructure.Services
             await _operationRepository.AddAsync(operation);
         }
 
-        public async Task<OperationDTO> GetAsync(string name)
+        public async Task<OperationDetailsDTO> GetAsync(string name)
         {
             var operation = await _operationRepository.GetAsync(name);
-            return _mapper.Map<Operation, OperationDTO>(operation);
+            return _mapper.Map<Operation, OperationDetailsDTO>(operation);
         }
 
         public async Task<IList<OperationDTO>> GetAllAsync()
