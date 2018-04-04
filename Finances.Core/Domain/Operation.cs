@@ -69,5 +69,10 @@ namespace Finances.Core.Domain
                 Value = value
             };
         }
+
+        public void UpdateOperation(decimal value)
+        {
+            Value = value;
+        }
     }
 }

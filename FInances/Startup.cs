@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 using Finances.Infrastructure.Settings;
 using System.Text;
 using Newtonsoft.Json;
+using Finances.Api.Framework;
 
 namespace FInances
 {
@@ -84,6 +85,7 @@ namespace FInances
                 var dataInitializer = app.ApplicationServices.GetService<IDataInitializer>();
                 dataInitializer.SeedAsync();
             }
+            app.UseCustomExceptionHandler();
             app.UseMvc();
             appLifeTime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
         }

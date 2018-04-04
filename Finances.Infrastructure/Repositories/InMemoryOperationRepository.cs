@@ -42,6 +42,7 @@ namespace Finances.Infrastructure.Repositories
 
         public async Task UpdateAsync(Operation operation)
         {
+            _operations.First(x => x.Id == operation.Id).UpdateOperation(operation.Value);
             await Task.CompletedTask;
         }
     }

@@ -2,6 +2,7 @@
 using Finances.Infrastructure.Commands.Operations;
 using Finances.Infrastructure.DTO;
 using Finances.Infrastructure.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,7 @@ namespace Finances.Api.Controllers
         //    return Json(operation);
         //}
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateOperation command)
         {
@@ -51,5 +53,24 @@ namespace Finances.Api.Controllers
 
             return Created($"operation/{command.Name}", null);
         }
+
+       // [Authorize]
+        [HttpPut("{name}")]
+        public async Task<IActionResult> Put([FromBody] UpdateOperation command)
+        {
+            await DispatchAsync(command);
+
+            return NoContent();
+        }
+
+      //  [Authorize]
+        [HttpDelete("me")]
+        public async Task<IActionResult> Post()
+        {
+            await DispatchAsync(new DeleteOperation());
+
+            return NoContent();
+        }
+
     }
 }

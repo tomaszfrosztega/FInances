@@ -9,6 +9,7 @@ using Finances.Infrastructure.DTO;
 using Finances.Core.Domain;
 using Finances.Core;
 using AutoMapper;
+using Finances.Infrastructure.Extensions;
 
 namespace Finances.Infrastructure.Services
 {
@@ -51,10 +52,29 @@ namespace Finances.Infrastructure.Services
             return _mapper.Map<Operation, OperationDetailsDTO>(operation);
         }
 
+        public async Task<OperationDetailsDTO> GetAsync(Guid id)
+        {
+            var operation = await _operationRepository.GetOrFailAsync(id);
+            return _mapper.Map<Operation, OperationDetailsDTO>(operation);
+        }
+
         public async Task<IList<OperationDTO>> GetAllAsync()
         {
             var operations = await _operationRepository.GetAllAsync();
             return null;
+        }
+
+        public async Task DeleteAsync(Guid Id)
+        {
+            var operation = await _operationRepository.GetAsync(Id);
+            await _operationRepository.DeleteAsync(operation);
+        }
+
+        public async Task UpdateAsync(string name, decimal value)
+        {
+            var operation = await _operationRepository.GetAsync(name);
+            operation.UpdateOperation(value);
+            await _operationRepository.UpdateAsync(operation);
         }
     }
 }
