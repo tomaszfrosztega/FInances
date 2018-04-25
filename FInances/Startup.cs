@@ -18,6 +18,8 @@ using Finances.Infrastructure.Settings;
 using System.Text;
 using Newtonsoft.Json;
 using Finances.Api.Framework;
+using NLog.Extensions.Logging;
+using NLog.Web;
 
 namespace FInances
 {
@@ -57,12 +59,9 @@ namespace FInances
             ILoggerFactory loggerFactory, 
             IApplicationLifetime appLifeTime)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-            var logger = loggerFactory.CreateLogger("Startup");
-            logger.LogWarning("Logger configured!");
-
-            Console.WriteLine("Hi!");
+            loggerFactory.AddNLog();
+            app.AddNLogWeb();
+            env.ConfigureNLog("nlog.config");
 
             var jwtSettings = app.ApplicationServices.GetService<JwtSettings>();
 

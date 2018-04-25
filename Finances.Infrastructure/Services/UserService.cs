@@ -5,6 +5,7 @@ using Finances.Infrastructure.DTO;
 using AutoMapper;
 using System.Threading.Tasks;
 using Finances.Infrastructure.IServices;
+using Finances.Infrastructure.Exceptions;
 
 namespace Finances.Infrastructure.Services
 {
@@ -32,9 +33,9 @@ namespace Finances.Infrastructure.Services
         public async Task LoginAsync(string email, string password)
         {
             var user = await _userRepository.GetAsync(email);
-            if (user != null)
+            if (user == null)
             {
-                throw new Exception("Invalid Credentials");
+                throw new ServiceExceptions(Exceptions.ErrorCodes.InvalidCredentials,"Invalid Credentials");
             }
 
             var hash = _encrypter.GetHash(password, user.Salt);
@@ -42,7 +43,7 @@ namespace Finances.Infrastructure.Services
             {
                 return;
             }
-            throw new Exception("Invalid Credentials");
+            throw new ServiceExceptions(Exceptions.ErrorCodes.InvalidCredentials,"Invalid Credentials");
         }
 
         public async Task RegisterAsync(Guid userId,string email, string username, string password)
@@ -50,7 +51,7 @@ namespace Finances.Infrastructure.Services
             var user = await _userRepository.GetAsync(email);
             if (user != null)
             {
-                throw new Exception($"User with email: {email} already exist");
+                throw new ServiceExceptions(Exceptions.ErrorCodes.EmailAlreadyExist, $"User with email: {email} already exist");
             }
             var salt = _encrypter.GetSalt(password);
             var hash = _encrypter.GetHash(password, salt);

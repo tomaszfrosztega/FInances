@@ -4,6 +4,7 @@ using Finances.Infrastructure.DTO;
 using Finances.Infrastructure.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace Finances.Api.Controllers
 {
     public class OperationController : ApiBaseController
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly IOperationServices _operationServices;
 
         public OperationController(IOperationServices operationServices, ICommandDispatcher commandDispatcher)
@@ -25,6 +27,7 @@ namespace Finances.Api.Controllers
         [HttpGet("{name}")]
         public async Task<IActionResult> GetAsync(string name)
         {
+            Logger.Info("Fetching operation");
             var operation = await _operationServices.GetAsync(name);
             if (operation == null)
             {

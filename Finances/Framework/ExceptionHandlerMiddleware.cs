@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Finances.Infrastructure.Exceptions;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,10 @@ namespace Finances.Api.Framework
             {
                 case Exception e when exceptionType == typeof(UnauthorizedAccessException):
                     statusCode = HttpStatusCode.Unauthorized;
+                    break;
+                case ServiceExceptions e when exceptionType == typeof(ServiceExceptions):
+                    statusCode = HttpStatusCode.BadRequest;
+                    errorCode = e.Code;
                     break;
                 default:
                     statusCode = HttpStatusCode.InternalServerError;

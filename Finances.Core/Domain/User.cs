@@ -47,7 +47,7 @@ namespace Finances.Core.Domain
         {
             if (!_userNameValidator.IsMatch(username))
             {
-                throw new Exception("Inproper user name");
+                throw new DomainException(ErrorCodes.InvalidUserName, "Inproper user name");
             }
             UserName = username;
         }
