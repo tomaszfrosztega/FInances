@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Finances.Infrastructure.EF;
 using Finances.Infrastructure.Extensions;
 using Finances.Infrastructure.Settings;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +26,8 @@ namespace Finances.Infrastructure.IoC.Modules
             builder.RegisterInstance(_configuration.GetSettings<GeneralSettings>())
                 .SingleInstance();
             builder.RegisterInstance(_configuration.GetSettings<JwtSettings>())
+                .SingleInstance();
+            builder.RegisterInstance(_configuration.GetSettings<SqlSettings>())
                 .SingleInstance();
         }
     }

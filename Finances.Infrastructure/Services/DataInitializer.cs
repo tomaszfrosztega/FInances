@@ -34,13 +34,13 @@ namespace Finances.Infrastructure.Services
             {
                 var userId = Guid.NewGuid();
                 var userName = $"user{i}";
-                tasks.Add(_userService.RegisterAsync(userId, $"{userName}@gmail.com", userName, "password"));
+                await _userService.RegisterAsync(userId, $"{userName}@gmail.com", userName, "password");
             }
             for (int i = 1; i < 4; i++)
             {
                 var userId = Guid.NewGuid();
                 var userName = $"admin{i}";
-                tasks.Add(_userService.RegisterAsync(userId, $"{userName}@gmail.com", userName, "password"));
+                await _userService.RegisterAsync(userId, $"{userName}@gmail.com", userName, "password");
             }
             tasks.Add(_tagService.AddAsync("test", Guid.NewGuid(), "One"));
             await Task.WhenAll(tasks);

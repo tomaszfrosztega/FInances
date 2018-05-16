@@ -20,6 +20,7 @@ using Newtonsoft.Json;
 using Finances.Api.Framework;
 using NLog.Extensions.Logging;
 using NLog.Web;
+using Finances.Infrastructure.EF;
 
 namespace FInances
 {
@@ -45,6 +46,10 @@ namespace FInances
             services.AddMemoryCache();
             services.AddMvc()
                 .AddJsonOptions(x=>x.SerializerSettings.Formatting = Formatting.Indented);
+            services.AddEntityFrameworkSqlServer()
+                    .AddEntityFrameworkInMemoryDatabase()
+                    .AddDbContext<FinancesContext>();
+
             var builder = new ContainerBuilder();
             builder.Populate(services);
             builder.RegisterModule(new ContainerModule(Configuration));
@@ -77,7 +82,7 @@ namespace FInances
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
                 }
             });
-            //initializa data using CustomDataInitializer
+            //initialize data using CustomDataInitializer
             var generalSettings = app.ApplicationServices.GetService<GeneralSettings>();
             if (generalSettings.SeedData)
             {
